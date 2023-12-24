@@ -8,8 +8,8 @@ import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import UserContext from '../containers/UserContext';
-import { logIn } from '../api/users';
-import { formatError } from '../utils';
+// import { logIn } from '../api/users';
+// import { formatError } from '../utils';
 
 const signInSchema = z.object({
   email: z.string().email(),
@@ -35,10 +35,10 @@ export default function LogIn() {
         onSubmit={async (values, { setSubmitting }) => {
           try {
             setSubmitting(true);
-            const { data } = await signIn(values);
-            setUser(data);
-            setSubmitting(false);
-            navigate('/home');
+            // const { data } = await logIn(values);
+            // setUser(data);
+            // setSubmitting(false);
+            // navigate('/home');
           } catch (e) {
             if (e instanceof Error) {
               const message = formatError(e);

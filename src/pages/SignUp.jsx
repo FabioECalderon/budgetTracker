@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { z } from 'zod';
-import { signUp } from '../api/users';
+// import { signUp } from '../api/users';
 import { useNavigate } from 'react-router-dom';
-import { formatError } from '../utils';
+// import { formatError } from '../utils';
 
 const signUpSchema = z.object({
   name: z.string(),
@@ -23,10 +23,7 @@ export default function SignUp() {
   const [error, setError] = useState('');
 
   const initialValues = {
-    name: '',
     username: '',
-    biography: '',
-    location: '',
     email: '',
     password: '',
   };
@@ -36,29 +33,7 @@ export default function SignUp() {
       {error && <Alert variant="danger">{error}</Alert>}
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setSubmitting }) => {
-          try {
-            const formData = new FormData();
-            for (const value in values) {
-              if (values.hasOwnProperty(value)) {
-                formData.append(value, values[value as keyof typeof values]);
-              }
-            }
-
-            const { data } = await signUp(formData);
-            setSubmitting(false);
-            navigate('/signed', {
-              state: {
-                email: data.email,
-              },
-            });
-          } catch (e) {
-            if (e instanceof Error) {
-              const message = formatError(e);
-              setError(message);
-            }
-          }
-        }}
+        onSubmit={async (values, { setSubmitting }) => {}}
         validationSchema={toFormikValidationSchema(signUpSchema)}
       >
         {({
@@ -72,26 +47,6 @@ export default function SignUp() {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <h2 className="fs-5 my-4">Personal information</h2>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                name="name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-                className={touched.name && errors.name ? 'is-invalid' : ''}
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="invalid-feedback"
-              />
-            </Form.Group>
-
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
               <Form.Control
@@ -112,7 +67,7 @@ export default function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label>Profile Photo</Form.Label>
               <Form.Control
                 type="file"
@@ -124,48 +79,7 @@ export default function SignUp() {
                   }
                 }}
               />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Biography</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={2}
-                placeholder="About you"
-                name="biography"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.biography}
-                className={
-                  touched.biography && errors.biography ? 'is-invalid' : ''
-                }
-              />
-              <ErrorMessage
-                name="biography"
-                component="div"
-                className="invalid-feedback"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Location</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Location"
-                name="location"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.location}
-                className={touched.location && errors.email ? 'is-invalid' : ''}
-              />
-              <ErrorMessage
-                name="location"
-                component="div"
-                className="invalid-feedback"
-              />
-            </Form.Group>
-
-            <h2 className="fs-5 my-4">Login information</h2>
+            </Form.Group> */}
 
             <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
